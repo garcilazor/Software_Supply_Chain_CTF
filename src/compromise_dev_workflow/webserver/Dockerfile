@@ -34,5 +34,5 @@ USER appuser
 COPY . ./webserver
 
 # Run the application
-EXPOSE 5000
+EXPOSE 80
 CMD ["gunicorn", "--bind", "0.0.0.0:80", "webserver:app"]
