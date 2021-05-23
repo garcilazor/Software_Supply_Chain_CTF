@@ -7,11 +7,16 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="white">Welcome to tester uploader</h2>
+      <h1 class="white">Welcome to codetrov</h2>
       <br>
       <p>Here's an ugly web page to uploade your garbo. Based off of https://docs.codecov.io/docs/about-the-codecov-bash-uploader</p>
       <p>Upload YOUR test results with this simple one-liner.</p>
       <pre><code>bash &lt(curl -s http://localhost/bash)</code></pre>
+      <p>In order to upload a file, you must set your <code>$TROVTOKEN</code> environment variable to the token supplied with your account. 
+      Remember: Do NOT share this with ANYBODY.</p>
+      <p>Upload one or multiple test reports by setting a <code>$TROVUPLOADDIR</code> environment variable describing 
+      which directory to upload.
+      </p>
     </div>
   </body>
 </html>
