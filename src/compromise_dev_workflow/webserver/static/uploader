@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
-echo "Hello, world!"
 
-# res=$(curl -X POST $cacert \
-#       --data-binary @"$upload_file.gz" \
-#       --retry 5 --retry-delay 2 --connect-timeout 2 \
-#       -H 'Content-Type: text/plain' \
-#       -H 'Content-Encoding: gzip' \
-#       -H 'X-Content-Encoding: gzip' \
-#       -H 'Accept: text/plain' \
-#       $curlargs \
-#       "$url/upload/v2?$query&attempt=$i" || echo 'HTTP 500')
+set -euf -o pipefail    # https://sipb.mit.edu/doc/safe-shell/
+
+upload_token="$TROVTOKEN"
+desired_upload_directory="$TROVUPLOADDIRECTORY"
+
+if [ ! -d $desired_upload_directory ] ; then
+    echo "Directory \"$TROVUPLOADDIRECTORY\" specified at $TROVUPLOADDIRECTORY doesn't exist."
+    exit 1
+fi
+
+trap 'rm -f "$upload_file_name"' EXIT  # Ensure files will be deleted upon exit
+trap 'rm -f "$upload_file"' EXIT  
+upload_file_name=$(mktemp) -t "codetrov.XXXXXXXX" || exit 1
+upload_file="$upload_file_name.tar.gz"
+tar -cvf $upload_file $desired_upload_directory
+
+upload_url = $(echo "http://localhost/upload/v1?token=$upload_token")
+curl -X POST \
+    --data-binrary @"$upload_file" 
+    --retry 5 --retry-delay 2 --connect-timeout 2 \
+    -H 'Content-Type: text/plain' \
+    -H 'Content-Encoding: gzip' \
+    -H 'X-Content-Encoding: gzip' \
+    -H 'Accept: text/plain' \
+    $upload_url)
