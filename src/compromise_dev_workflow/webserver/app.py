@@ -27,6 +27,3 @@ def handle_upload():
     if token in acceptable_tokens:
         return 200
     return "Please supply a valid Trov-Token ", 401
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=80)
