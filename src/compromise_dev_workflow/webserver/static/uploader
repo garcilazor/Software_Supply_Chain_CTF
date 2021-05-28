@@ -2,26 +2,33 @@
 
 set -euf -o pipefail    # https://sipb.mit.edu/doc/safe-shell/
 
-upload_token="$TROVTOKEN"
-desired_upload_directory="$TROVUPLOADDIRECTORY"
+if [ -z "${TROVTOKEN+x}" ]; then
+    echo "Set \$TROVTOKEN to the token supplied with your account."
+    exit 1
+fi
 
-if [ ! -d $desired_upload_directory ] ; then
-    echo "Directory \"$TROVUPLOADDIRECTORY\" specified at $TROVUPLOADDIRECTORY doesn't exist."
+if [ -z "${TROVUPLOADDIRECTORY+x}" ]; then
+    echo "Set \$TROVUPLOADDIRECTORY to specify which directory contains your test results."
+    exit 1
+fi
+
+if [ ! -d $TROVUPLOADDIRECTORY ]; then
+    echo "Directory \"$TROVUPLOADDIRECTORY\" specified by \$TROVUPLOADDIRECTORY doesn't exist."
     exit 1
 fi
 
 trap 'rm -f "$upload_file_name"' EXIT  # Ensure files will be deleted upon exit
 trap 'rm -f "$upload_file"' EXIT  
-upload_file_name=$(mktemp) -t "codetrov.XXXXXXXX" || exit 1
+upload_file_name=$(mktemp -t "codetrov.XXXXXXXX") || exit 1
 upload_file="$upload_file_name.tar.gz"
-tar -cvf $upload_file $desired_upload_directory
+tar -cvf $upload_file $TROVUPLOADDIRECTORY
 
-upload_url = $(echo "http://localhost/upload/v1?token=$upload_token")
+echo "$upload_url"
 curl -X POST \
-    --data-binrary @"$upload_file" 
+    --data-binary @"$upload_file" 
     --retry 5 --retry-delay 2 --connect-timeout 2 \
     -H 'Content-Type: text/plain' \
     -H 'Content-Encoding: gzip' \
     -H 'X-Content-Encoding: gzip' \
     -H 'Accept: text/plain' \
-    $upload_url)
+    "http://localhost/upload/v1?token=$TROVTOKEN"
