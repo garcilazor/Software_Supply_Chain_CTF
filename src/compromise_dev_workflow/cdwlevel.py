@@ -20,17 +20,11 @@ class CDWLevel:
         self.is_setup = False
 
     def setup_level(self):
-        # Build the docker images and run them on the ctf-cdw-net network
+        self.teardown_level()
         self.build_necessary_images()
-        try:
-            self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
-        except docker.errors.APIError as e:
-            if "already exists" in e.explanation.lower():
-                self.network = self.client.network.list(self.NETWORK_NAME).pop()
-            else:
-                raise e
-        self.webserver_container = self.client.containers.run(image=self.WEBSERVER_IMAGE_NAME, detach=True, auto_remove=True)
-        self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, detach=True, auto_remove=True)
+        self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
+        self.webserver_container = self.client.containers.run(image=self.WEBSERVER_IMAGE_NAME, name=self.WEBSERVER_IMAGE_NAME, network=self.NETWORK_NAME, detach=True, auto_remove=True)
+        self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, name=self.RANDOMCLIENT_IMAGE_NAME, network=self.NETWORK_NAME, detach=True, auto_remove=True)
         #client.containers.run("ubuntu", tty=True, stdin_open=True, detach=True, name="bash")   # TODO Make a container for user to play in.
         self.is_setup = True
 
@@ -44,14 +38,22 @@ class CDWLevel:
 
     def teardown_level(self, remove_images=False):
         # Delete the ctf-cd-net and stop the levels. 
-        if self.is_setup:
-            self.network.remove()
-            self.webserver_container.stop()
-            self.randomclient_container.stop()
-            self.is_setup = False
+        self.is_setup = False
+        self._ensure_container_is_stopped_and_removed(self.WEBSERVER_IMAGE_NAME)
+        self._ensure_container_is_stopped_and_removed(self.RANDOMCLIENT_IMAGE_NAME)
+        networks = self.client.networks.list(self.NETWORK_NAME)
+        for network in networks:  # Should only be 0 or 1 network, but this will gaurantee all copies are eliminated.
+            network.remove()
         if remove_images:
             self._ensure_image_is_removed(self.WEBSERVER_IMAGE_NAME)
             self._ensure_image_is_removed(self.RANDOMCLIENT_IMAGE_NAME)
+
+    def _ensure_container_is_stopped_and_removed(self, name):
+        try:
+            container = self.client.containers.get(name)
+        except docker.errors.NotFound:
+            return
+        container.stop()
 
     def _ensure_image_is_removed(self, name):
         try:
@@ -63,4 +65,4 @@ if __name__ == "__main__":
     l = CDWLevel()
     l.setup_level()
     # l.player_level()
-    # l.teardown_level()
+    l.teardown_level()
