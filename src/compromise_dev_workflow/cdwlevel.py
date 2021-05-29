@@ -23,7 +23,12 @@ class CDWLevel:
         self.teardown_level()
         self.build_necessary_images()
         self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
-        self.webserver_container = self.client.containers.run(image=self.WEBSERVER_IMAGE_NAME, name=self.WEBSERVER_IMAGE_NAME, network=self.NETWORK_NAME, detach=True, auto_remove=True)
+        self.webserver_container = self.client.containers.run(image=self.WEBSERVER_IMAGE_NAME, 
+            name=self.WEBSERVER_IMAGE_NAME, 
+            ports={80: 80},
+            network=self.NETWORK_NAME, 
+            detach=True, 
+            auto_remove=True)
         self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, name=self.RANDOMCLIENT_IMAGE_NAME, network=self.NETWORK_NAME, detach=True, auto_remove=True)
         #client.containers.run("ubuntu", tty=True, stdin_open=True, detach=True, name="bash")   # TODO Make a container for user to play in.
         self.is_setup = True
@@ -65,4 +70,5 @@ if __name__ == "__main__":
     l = CDWLevel()
     l.setup_level()
     # l.player_level()
+    input("Press enter to stop running level")
     l.teardown_level()
