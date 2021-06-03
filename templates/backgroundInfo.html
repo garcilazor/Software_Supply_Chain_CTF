@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<h1>Background Information Page</h1>
+<div>
+    <br>
+    Specific technologies needed:
+    <br>
+    With UI: docker and python/js
+    <br>
+    Without: just python/js probably.
+    <br><br>
+    There is ultimately 2 ways to do this, one way with a UI and one way without. Doing it without should be fairly simple but we would need to make the program large enough to have it not be blatantly obvious.
+    <br>
+    Without UI scenario:
+    <br>
+    Give the user a program in which they can explore. it needs to have a decent amount of meat on it as to hide the custom package. This would imply that the program is written either python or JS, either one is fine since there isn't a UI. The user would then look through the package and attempt to identify which ones are out of date using a npm command or a pip command.
+    <br>
+    Upon finding the custom package (or packages) the user would then be directed to find the package with the security issue online(https://cve.mitre.org/cve/search_cve_list.html). They would then have to find the cve and either exploit it to obtain the flag, or they can update it and the program can throw an error to release the flag.
+    <br>
+    Codelab steps:
+    <br>
+        download the program to run/download repository
+        <br>
+        let the user use the application for a brief moment to understand what it does
+        <br>
+        inform the user of the command needed to find the age of packages
+        <br>
+        ask the user to search the packages for ones with CVEs
+        <br>
+        ensure the user knows the correct package by asking for it in the code lab
+        <br>
+        Ask the user to attempt to update it
+        <br>
+        Let the user rerun the program and either watch it break or have it throw the flag as an error
+        <br>
+    
+</div>
+{% endblock %}
