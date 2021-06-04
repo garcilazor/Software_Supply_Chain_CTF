@@ -1,0 +1,2 @@
+flask
+git+git://github.com/jladan/package_demo.git#egg=measurements
