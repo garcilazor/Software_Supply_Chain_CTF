@@ -29,7 +29,7 @@ class CDWLevel:
             network=self.NETWORK_NAME, 
             detach=True, 
             auto_remove=True)
-        self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, name=self.RANDOMCLIENT_IMAGE_NAME, network=self.NETWORK_NAME, detach=True, auto_remove=True)
+        self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, name=self.RANDOMCLIENT_IMAGE_NAME, network=self.NETWORK_NAME, tty=True, detach=True, auto_remove=True)
         #client.containers.run("ubuntu", tty=True, stdin_open=True, detach=True, name="bash")   # TODO Make a container for user to play in.
         self.is_setup = True
 
