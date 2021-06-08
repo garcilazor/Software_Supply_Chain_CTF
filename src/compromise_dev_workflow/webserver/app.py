@@ -1,5 +1,11 @@
+import logging
+import traceback
+
 from flask import Flask, request, render_template, send_file
 app = Flask(__name__)
+
+logging.basicConfig(format='%(asctime)s %(message)s', filename="webserver.log", filemode='a', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # We really need to set up a DB one of these days.
 acceptable_tokens = {
@@ -20,6 +26,11 @@ def index():
 @app.route("/uploader")
 def uploader_download():
     return send_file("static/uploader")
+
+@app.errorhandler(Exception)
+def generic_error_handler(e):
+    logger.error(f"The following exception occurred when responding to a request: {traceback.format_exc()}")
+    return "The webapp encountered an un-handled exception. Please contact the author.", 500
 
 @app.route("/upload", methods=["POST"])
 def handle_upload():
