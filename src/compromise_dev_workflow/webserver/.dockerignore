@@ -5,3 +5,5 @@
 !Pipfile
 !Pipfile.lock
 !*.py
+!static/
+!templates/

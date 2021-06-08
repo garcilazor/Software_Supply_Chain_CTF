@@ -31,8 +31,12 @@ WORKDIR /home/appuser
 USER appuser
 
 # Install application into container
-COPY . ./webserver
+COPY ./ ./webserver
+RUN ls -la ./webserver
 
 # Run the application
-EXPOSE 80
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "webserver:app"]
+EXPOSE 8080
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "webserver:app"]
+
+# Comment the above CMD and uncomment the below CMD to run server in debug
+#CMD ["python", "-m", "webserver"]  # Debug mode
