@@ -6,37 +6,29 @@ ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
 
+# Install required commands
+RUN apt-get update && apt-get install -y --no-install-recommends gcc openssh-server sudo
+RUN service ssh restart
 
-FROM base AS python-deps
-
-# Install pipenv and compilation dependencies
 RUN pip install pipenv
-RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
-# Install python dependencies in /.venv
+# Install Python dependencies.
 COPY Pipfile .
 COPY Pipfile.lock .
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
+RUN pipenv install --deploy --system --ignore-pipfile
 
-
-FROM base AS runtime
-
-# Copy virtual env from python-deps stage
-COPY --from=python-deps /.venv /.venv
-ENV PATH="/.venv/bin:$PATH"
 
 # Create and switch to a new user
-RUN useradd --create-home appuser
+RUN useradd --create-home appuser --shell /bin/bash --password $(perl -e "print crypt('qwerty', 'sa');")
 WORKDIR /home/appuser
-USER appuser
 
 # Install application into container
 COPY ./ ./webserver
-RUN ls -la ./webserver
+RUN mv webserver/docker /var/
+# Don't want the user to see the "docker" folder.
+RUN chmod o-rwx /var/docker
+RUN chmod u+x /var/docker/start.sh
 
 # Run the application
 EXPOSE 8080
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "webserver:app"]
-
-# Comment the above CMD and uncomment the below CMD to run server in debug
-#CMD ["python", "-m", "webserver"]  # Debug mode
+CMD /var/docker/start.sh
