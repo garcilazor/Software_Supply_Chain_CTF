@@ -1,4 +1,4 @@
-from password.password import getpass
+from password.password import *
 if __name__ ==  "__main__":
     name = input ("Full name: ")
     dob = input ("Date of birth: ")
