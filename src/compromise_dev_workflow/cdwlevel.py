@@ -27,6 +27,7 @@ class CDWLevel:
         self.is_setup = False
 
     def setup_level(self):
+        # TODO What if the player runs the same app twice? 
         self.teardown_level()
         self.build_necessary_images()
         self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
@@ -34,7 +35,7 @@ class CDWLevel:
             image=self.WEBSERVER_IMAGE_NAME, 
             name=self.WEBSERVER_NAME, 
             hostname=self.WEBSERVER_NAME,
-            ports={80: 5000}, # Webserver
+            ports={80: 5000}, # Webserver  # TODO What if 5000 is not available? 
             network=self.NETWORK_NAME, 
             detach=True, 
             auto_remove=True)
