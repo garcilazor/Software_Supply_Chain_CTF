@@ -38,7 +38,6 @@ class CDWLevel:
             auto_remove=True)
         self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, name=self.RANDOMCLIENT_IMAGE_NAME, network=self.NETWORK_NAME, tty=True, detach=True, auto_remove=True)
         self.player_container = self.client.containers.run(image=self.PLAYER_IMAGE_NAME, name=self.PLAYER_IMAGE_NAME, network=self.NETWORK_NAME, tty=True, detach=True, auto_remove=True)
-        #self.client.containers.run("ubuntu", tty=True, stdin_open=True, detach=True, name="bash")   # TODO Make a container for user to play in.
         self.is_setup = True
 
     def build_necessary_images(self):
@@ -48,7 +47,8 @@ class CDWLevel:
 
     def play_level(self):
         # Start the level for the player. In our case, put them in a docker image.
-        #os.system('docker run -it --rm ubuntu bash')
+        if not self.is_setup:
+            raise RuntimeError("Level has not been set up. Call setup_level() first.")
         os.system('docker exec -it '+ self.PLAYER_IMAGE_NAME + ' /bin/bash')
 
     def teardown_level(self, remove_images=False):
