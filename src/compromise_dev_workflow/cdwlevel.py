@@ -25,7 +25,8 @@ class CDWLevel:
         self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
         self.webserver_container = self.client.containers.run(image=self.WEBSERVER_IMAGE_NAME, 
             name=self.WEBSERVER_IMAGE_NAME, 
-            ports={80: 80},
+            ports={8080: 80, # Webserver
+                   8001: 20},  # SSH server
             network=self.NETWORK_NAME, 
             detach=True, 
             auto_remove=True)
