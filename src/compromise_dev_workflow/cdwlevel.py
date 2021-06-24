@@ -11,6 +11,7 @@ player_dir = os.path.join(this_directory, "player")
 class CDWLevel:
     NETWORK_NAME = "ctf-cdw-net"
     WEBSERVER_IMAGE_NAME = "ctf-cdw-codetrov"
+    WEBSERVER_NAME = "codetrov"
     RANDOMCLIENT_IMAGE_NAME = "ctf-cdw-randomclient"
     PLAYER_IMAGE_NAME = "ctf-cdw-player"
 
@@ -29,15 +30,29 @@ class CDWLevel:
         self.teardown_level()
         self.build_necessary_images()
         self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
-        self.webserver_container = self.client.containers.run(image=self.WEBSERVER_IMAGE_NAME, 
-            name=self.WEBSERVER_IMAGE_NAME, 
-            ports={8080: 80, # Webserver
-                   8001: 20},  # SSH server
+        self.webserver_container = self.client.containers.run(
+            image=self.WEBSERVER_IMAGE_NAME, 
+            name=self.WEBSERVER_NAME, 
+            hostname=self.WEBSERVER_NAME,
+            ports={8080: 8000}, # Webserver
             network=self.NETWORK_NAME, 
             detach=True, 
             auto_remove=True)
-        self.randomclient_container = self.client.containers.run(image=self.RANDOMCLIENT_IMAGE_NAME, name=self.RANDOMCLIENT_IMAGE_NAME, network=self.NETWORK_NAME, tty=True, detach=True, auto_remove=True)
-        self.player_container = self.client.containers.run(image=self.PLAYER_IMAGE_NAME, name=self.PLAYER_IMAGE_NAME, network=self.NETWORK_NAME, tty=True, detach=True, auto_remove=True)
+        self.randomclient_container = self.client.containers.run(
+            image=self.RANDOMCLIENT_IMAGE_NAME, 
+            name=self.RANDOMCLIENT_IMAGE_NAME, 
+            network=self.NETWORK_NAME, 
+            tty=True, 
+            detach=True, 
+            auto_remove=True)
+        self.player_container = self.client.containers.run(
+            image=self.PLAYER_IMAGE_NAME, 
+            name=self.PLAYER_IMAGE_NAME, 
+            hostname="ubuntu",
+            network=self.NETWORK_NAME, 
+            tty=True, 
+            detach=True, 
+            auto_remove=True)
         self.is_setup = True
 
     def build_necessary_images(self):
@@ -54,7 +69,7 @@ class CDWLevel:
     def teardown_level(self, remove_images=False):
         # Delete the ctf-cd-net and stop the levels. 
         self.is_setup = False
-        self._ensure_container_is_stopped_and_removed(self.WEBSERVER_IMAGE_NAME)
+        self._ensure_container_is_stopped_and_removed(self.WEBSERVER_NAME)
         self._ensure_container_is_stopped_and_removed(self.RANDOMCLIENT_IMAGE_NAME)
         self._ensure_container_is_stopped_and_removed(self.PLAYER_IMAGE_NAME)
         networks = self.client.networks.list(self.NETWORK_NAME)
@@ -82,5 +97,4 @@ if __name__ == "__main__":
     l = CDWLevel()
     l.setup_level()
     l.play_level()
-    input("Press enter to stop running level")
     l.teardown_level()
