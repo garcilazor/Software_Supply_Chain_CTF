@@ -30,5 +30,5 @@ RUN chmod o-rwx /var/docker
 RUN chmod u+x /var/docker/start.sh
 
 # Run the application
-EXPOSE 8080
+EXPOSE 80
 CMD /var/docker/start.sh

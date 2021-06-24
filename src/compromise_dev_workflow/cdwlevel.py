@@ -34,7 +34,7 @@ class CDWLevel:
             image=self.WEBSERVER_IMAGE_NAME, 
             name=self.WEBSERVER_NAME, 
             hostname=self.WEBSERVER_NAME,
-            ports={8080: 8000}, # Webserver
+            ports={80: 5000}, # Webserver
             network=self.NETWORK_NAME, 
             detach=True, 
             auto_remove=True)
@@ -64,7 +64,7 @@ class CDWLevel:
         # Start the level for the player. In our case, put them in a docker image.
         if not self.is_setup:
             raise RuntimeError("Level has not been set up. Call setup_level() first.")
-        os.system('docker exec -it '+ self.PLAYER_IMAGE_NAME + ' /bin/bash')
+        os.system('docker exec -it '+ self.PLAYER_IMAGE_NAME + ' /bin/bash')  # TODO After exiting, the player's terminal gets all messed up.
 
     def teardown_level(self, remove_images=False):
         # Delete the ctf-cd-net and stop the levels. 
