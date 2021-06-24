@@ -7,3 +7,4 @@ RUN useradd --create-home user
 WORKDIR /home/user
 USER user
 COPY ./README.md .
+COPY ./note_from_disgruntled_employee .

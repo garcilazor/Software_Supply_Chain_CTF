@@ -1,5 +1,4 @@
-Rumor has it that an employee that wasn't too happy with his employer
-and hes has given SSH credentials into a server/
+Many developers use a helpful website, codetrov, as their go-to code coverage report generator. In fact, its so
+popular that various developers upload their test results to the site every 30 seconds or so. 
 
-username: appuser
-password: qwerty
+To view the codecov website, visit localhost:5000 on your local webbrowser. 
