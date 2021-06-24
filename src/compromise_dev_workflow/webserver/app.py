@@ -27,14 +27,18 @@ def index():
 def uploader_download():
     return send_file("static/uploader")
 
-@app.errorhandler(Exception)
-def generic_error_handler(e):
-    logger.error(f"The following exception occurred when responding to a request: {traceback.format_exc()}")
-    return "The webapp encountered an un-handled exception. Please contact the author.", 500
-
 @app.route("/upload", methods=["POST"])
 def handle_upload():
     token = request.args.get('token')
     if token in acceptable_tokens:
         return 200
     return "Please supply a valid Trov-Token ", 401
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(Exception)
+def generic_error_handler(e):
+    logger.error(f"The following exception occurred when responding to a request: {traceback.format_exc()}")
+    return "The webapp encountered an un-handled exception. Please contact the author.\n", 500
