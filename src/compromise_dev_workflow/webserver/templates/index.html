@@ -2,21 +2,54 @@
 <html>
   <head>
     <title>Flask Intro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
   </head>
-  <body>
-    <div class="container">
-      <h1 class="white">Welcome to codetrov</h2>
-      <br>
-      <p>Here's an ugly web page to uploade your garbo. Based off of https://docs.codecov.io/docs/about-the-codecov-bash-uploader</p>
-      <p>Upload YOUR test results with this simple one-liner.</p>
-      <pre><code>bash &lt(curl -s http://localhost/bash)</code></pre>
-      <p>In order to upload a file, you must set your <code>$TROVTOKEN</code> environment variable to the token supplied with your account. 
-      Remember: Do NOT share this with ANYBODY.</p>
-      <p>Upload one or multiple test reports by setting a <code>$TROVUPLOADDIR</code> environment variable describing 
-      which directory to upload.
-      </p>
+  <body style="background-color: black">
+    <div class="container bg-dark text-light text-center rounded mt-1">
+      <h1 class="white">Welcome to Codetrov</h1>
+    </div>
+    <br />
+    <div class="container h-50 bg-dark text-light rounded pt-5 pb-5">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-dark">
+          <p class="fw-bold">
+            Here's an ugly web page to upload your garbo. Based off of
+            https://docs.codecov.io/docs/about-the-codecov-bash-uploader
+          </p>
+        </li>
+        <li class="list-group-item list-group-item-dark">
+          <p class="fw-bold">
+            Upload YOUR test results with this simple one-liner.
+          </p>
+        </li>
+        <li class="list-group-item list-group-item-dark">
+          <p class="fw-bold">
+            <code>bash &lt(curl -s http://localhost/bash)</code>
+          </p>
+        </li>
+
+        <li class="list-group-item list-group-item-dark">
+          <p class="fw-bold">
+            In order to upload a file, you must set your
+            <code>$TROVTOKEN</code> environment variable to the token supplied
+            with your account. Remember: Do NOT share this with ANYBODY.
+          </p>
+        </li>
+        <li class="list-group-item list-group-item-dark">
+          <p class="fw-bold">
+            Upload one or multiple test reports by setting a
+            <code>$TROVUPLOADDIR</code> environment variable describing which
+            directory to upload.
+          </p>
+        </li>
+      </ul>
     </div>
   </body>
 </html>
+
