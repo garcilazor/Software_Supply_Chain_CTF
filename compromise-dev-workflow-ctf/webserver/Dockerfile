@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
 
 # Install required commands
-RUN apt-get update && apt-get install -y --no-install-recommends gcc openssh-server sudo
+RUN apt-get update && apt-get install -y --no-install-recommends gcc openssh-server sudo vim nano
 RUN service ssh restart
 
 RUN pip install pipenv
@@ -25,7 +25,7 @@ WORKDIR /home/appuser
 # Install application into container
 COPY ./ ./webserver
 RUN mv webserver/docker /var/
-# Don't want the user to see the "docker" folder.
+RUN chown -R appuser:appuser webserver
 RUN chmod o-rwx /var/docker
 RUN chmod u+x /var/docker/start.sh
 
