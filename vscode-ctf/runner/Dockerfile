@@ -11,5 +11,5 @@ RUN wget -O ext.vsix https://github.com/microsoft/vscode-python/releases/downloa
     useradd -u 1001 user -M -d /home && chown -R user:user /home && sudo --user='#1001' bash -c "code --install-extension ./ext.vsix" && rm ext.vsix
 
 COPY entrypoint.sh /entrypoint.sh
-
+RUN chmod +x entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]

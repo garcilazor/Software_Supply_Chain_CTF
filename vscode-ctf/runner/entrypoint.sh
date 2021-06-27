@@ -1,7 +1,8 @@
 #!/bin/sh
 
-git clone "$GIT_URL" repo
-sudo --user=user code repo &
-pid="$!"
-sleep "$EXECUTION_MAX_SECONDS"
-kill $!
+mkdir repo
+mkdir data
+Xvfb :99 -screen 0 640x480x8 -nolisten tcp &
+export DISPLAY=":99"
+bash -c "code repo --user-data-dir data" &
+sleep "5"
