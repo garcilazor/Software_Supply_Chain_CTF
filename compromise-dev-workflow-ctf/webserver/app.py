@@ -1,6 +1,6 @@
 import logging
 import traceback
-import datetime
+import time
 import os
 
 from flask import Flask, request, render_template, send_file
@@ -9,9 +9,9 @@ from werkzeug.utils import secure_filename
 ROOT_SERVER_DIRECTORY = os.path.dirname(__file__)
 UPLOAD_FOLDER = os.path.join(ROOT_SERVER_DIRECTORY, "uploads")
 DATETIME_FORMAT = "%Y-%m-%d:%H:%M:%S"
+MAXIMUM_FILE_AGE_SECONDS = 500
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 logging.basicConfig(format='%(asctime)s %(message)s', filename="webserver.log", filemode='a', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -45,18 +45,23 @@ def handle_upload():
     elif 'file' not in request.files:
         return "You did not upload any file.\n", 401
     file = request.files['file']
-    prune_upload_directory()
-    dt_string = datetime.datetime.now().strftime(DATETIME_FORMAT)
     filename = secure_filename(file.filename)
-    file_directory = os.path.join(UPLOAD_FOLDER, token, dt_string)
+    file_directory = os.path.join(UPLOAD_FOLDER, token)
     file_location = os.path.join(file_directory, filename)
     os.makedirs(file_directory, exist_ok=True)
+    prune_upload_directory()
     file.save(file_location)
     return "Upload successful.\n", 200
 
 def prune_upload_directory():
-    # TODO Remove old stuff
-    pass
+    for client_upload_folder in os.listdir(UPLOAD_FOLDER):
+        client_upload_folder_absolute = os.path.join(UPLOAD_FOLDER, client_upload_folder)
+        for uploaded_file in os.listdir(client_upload_folder_absolute):
+            uploaded_file_absolute = os.path.join(client_upload_folder_absolute, uploaded_file)
+            upload_time = os.path.getmtime(uploaded_file_absolute)
+            age = time.time() - upload_time
+            if age > MAXIMUM_FILE_AGE_SECONDS:
+                os.remove(uploaded_file_absolute)
 
 @app.errorhandler(404)
 def page_not_found(e):
