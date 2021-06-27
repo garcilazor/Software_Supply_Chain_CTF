@@ -6,7 +6,8 @@ import os
 from flask import Flask, request, render_template, send_file
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = "/home/appuser/uploads"
+ROOT_SERVER_DIRECTORY = os.path.dirname(__file__)
+UPLOAD_FOLDER = os.path.join(ROOT_SERVER_DIRECTORY, "uploads")
 DATETIME_FORMAT = "%Y-%m-%d:%H:%M:%S"
 
 app = Flask(__name__)
@@ -46,9 +47,11 @@ def handle_upload():
     file = request.files['file']
     prune_upload_directory()
     dt_string = datetime.datetime.now().strftime(DATETIME_FORMAT)
-    file_location= f"{UPLOAD_FOLDER}/{token}/{dt_string}"
     filename = secure_filename(file.filename)
-    file.save(file_location, filename)
+    file_directory = os.path.join(UPLOAD_FOLDER, token, dt_string)
+    file_location = os.path.join(file_directory, filename)
+    os.makedirs(file_directory, exist_ok=True)
+    file.save(file_location)
     return "Upload successful.\n", 200
 
 def prune_upload_directory():
