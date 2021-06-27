@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euf -o pipefail    # https://sipb.mit.edu/doc/safe-shell/
+
+if [ -z "${TROVTOKEN+x}" ]; then
+    echo "Set \$TROVTOKEN to the token supplied with your account."
+    exit 1
+fi
+
+if [ -z "${TROVUPLOADDIRECTORY+x}" ]; then
+    echo "Set \$TROVUPLOADDIRECTORY to specify which directory contains your test results."
+    exit 1
+fi
+
+if [ ! -d $TROVUPLOADDIRECTORY ]; then
+    echo "Directory \"$TROVUPLOADDIRECTORY\" specified by \$TROVUPLOADDIRECTORY doesn't exist."
+    exit 1
+fi
+
+trap 'rm -f "$upload_file_name"' EXIT  # Ensure files will be deleted upon exit
+trap 'rm -f "$upload_file"' EXIT  
+upload_file_name=$(mktemp -t "codetrov.XXXXXXXX") || exit 1
+upload_file="$upload_file_name.tar.gz"
+tar -cvf $upload_file $TROVUPLOADDIRECTORY
+
+echo "$upload_url"
+curl -X POST \
+    --data-binary @"$upload_file" 
+    --retry 5 --retry-delay 2 --connect-timeout 2 \
+    -H 'Content-Type: text/plain' \
+    -H 'Content-Encoding: gzip' \
+    -H 'X-Content-Encoding: gzip' \
+    -H 'Accept: text/plain' \
+    "http://localhost/upload/v1?token=$TROVTOKEN"
