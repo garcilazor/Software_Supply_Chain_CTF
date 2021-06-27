@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y ssh curl
+RUN apt-get update && apt-get install -y ssh curl vim nano
 
 RUN useradd --create-home user
 
