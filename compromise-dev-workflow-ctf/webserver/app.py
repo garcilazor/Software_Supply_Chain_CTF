@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 ROOT_SERVER_DIRECTORY = os.path.dirname(__file__)
 UPLOAD_FOLDER = os.path.join(ROOT_SERVER_DIRECTORY, "uploads")
 DATETIME_FORMAT = "%Y-%m-%d:%H:%M:%S"
-MAXIMUM_FILE_AGE_SECONDS = 500
+MAXIMUM_FILE_AGE_SECONDS = 200
 
 app = Flask(__name__)
 
