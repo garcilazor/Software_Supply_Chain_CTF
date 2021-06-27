@@ -17,17 +17,13 @@ if [ ! -d $TROVUPLOADDIRECTORY ]; then
     exit 1
 fi
 
-trap 'rm -f "$upload_file_name"' EXIT  # Ensure files will be deleted upon exit
+trap 'rm -f "$upload_file_name"' EXIT  # Ensure new files will be deleted upon exit
 trap 'rm -f "$upload_file"' EXIT  
 upload_file_name=$(mktemp -t "codetrov.XXXXXXXX") || exit 1
 upload_file="$upload_file_name.tar.gz"
 tar -cvf $upload_file -C $TROVUPLOADDIRECTORY .
 
 curl -X POST \
-    --data-binary @"$upload_file" \
-    --retry 5 --retry-delay 2 --connect-timeout 2 \
-    -H 'Content-Type: text/plain' \
-    -H 'Content-Encoding: gzip' \
-    -H 'X-Content-Encoding: gzip' \
-    -H 'Accept: text/plain' \
-    "http://codetrov/upload/v1?token=$TROVTOKEN"
+    -F "token=$TROVTOKEN" \
+    -F "file=@$upload_file" \
+    "http://codetrov/upload/v1"

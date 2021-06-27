@@ -39,7 +39,7 @@ def uploader_download():
 
 @app.route("/upload/v1", methods=["POST"])
 def handle_upload():
-    token = request.args.get('token')
+    token = request.values.get('token')
     if token not in acceptable_tokens:
         return "Please supply a valid Trov-Token\n", 401
     elif 'file' not in request.files:
