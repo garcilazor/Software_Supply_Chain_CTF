@@ -27,7 +27,6 @@ class CDWLevel:
         self.is_setup = False
 
     def setup_level(self):
-        # TODO What if the player runs the same app twice? 
         self.teardown_level()
         self.build_necessary_images()
         self.network = self.client.networks.create(self.NETWORK_NAME, check_duplicate=True)
