@@ -23,16 +23,16 @@ acceptable_tokens = {
 def index():
     return render_template('index.html')
 
-@app.route("/uploader")
+@app.route("/bash")
 def uploader_download():
     return send_file("static/uploader")
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload/v1", methods=["POST"])
 def handle_upload():
     token = request.args.get('token')
     if token in acceptable_tokens:
-        return 200
-    return "Please supply a valid Trov-Token ", 401
+        return "Upload successful.\n", 200
+    return "Please supply a valid Trov-Token\n", 401
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -21,14 +21,13 @@ trap 'rm -f "$upload_file_name"' EXIT  # Ensure files will be deleted upon exit
 trap 'rm -f "$upload_file"' EXIT  
 upload_file_name=$(mktemp -t "codetrov.XXXXXXXX") || exit 1
 upload_file="$upload_file_name.tar.gz"
-tar -cvf $upload_file $TROVUPLOADDIRECTORY
+tar -cvf $upload_file -C $TROVUPLOADDIRECTORY .
 
-echo "$upload_url"
 curl -X POST \
-    --data-binary @"$upload_file" 
+    --data-binary @"$upload_file" \
     --retry 5 --retry-delay 2 --connect-timeout 2 \
     -H 'Content-Type: text/plain' \
     -H 'Content-Encoding: gzip' \
     -H 'X-Content-Encoding: gzip' \
     -H 'Accept: text/plain' \
-    "http://localhost/upload/v1?token=$TROVTOKEN"
+    "http://codetrov/upload/v1?token=$TROVTOKEN"
