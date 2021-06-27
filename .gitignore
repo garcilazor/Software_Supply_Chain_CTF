@@ -1,2 +1,4 @@
 .vscode
 __pycache__
+compromise-dev-workflow-ctf/webserver/uploads
+compromise-dev-workflow-ctf/webserver.log
