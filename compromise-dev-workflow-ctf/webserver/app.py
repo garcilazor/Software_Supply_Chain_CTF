@@ -1,11 +1,20 @@
 import logging
 import traceback
+import datetime
+import os
 
 from flask import Flask, request, render_template, send_file
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = "/home/appuser/uploads"
+DATETIME_FORMAT = "%Y-%m-%d:%H:%M:%S"
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 logging.basicConfig(format='%(asctime)s %(message)s', filename="webserver.log", filemode='a', level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 # We really need to set up a DB one of these days.
 acceptable_tokens = {
@@ -30,9 +39,21 @@ def uploader_download():
 @app.route("/upload/v1", methods=["POST"])
 def handle_upload():
     token = request.args.get('token')
-    if token in acceptable_tokens:
-        return "Upload successful.\n", 200
-    return "Please supply a valid Trov-Token\n", 401
+    if token not in acceptable_tokens:
+        return "Please supply a valid Trov-Token\n", 401
+    elif 'file' not in request.files:
+        return "You did not upload any file.\n", 401
+    file = request.files['file']
+    prune_upload_directory()
+    dt_string = datetime.datetime.now().strftime(DATETIME_FORMAT)
+    file_location= f"{UPLOAD_FOLDER}/{token}/{dt_string}"
+    filename = secure_filename(file.filename)
+    file.save(file_location, filename)
+    return "Upload successful.\n", 200
+
+def prune_upload_directory():
+    # TODO Remove old stuff
+    pass
 
 @app.errorhandler(404)
 def page_not_found(e):
