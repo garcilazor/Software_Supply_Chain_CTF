@@ -1,7 +1,7 @@
 from password.password import *
 from record.record import *
 from phonenumber.phonenumber import *
-from email.email import *
+from emailpackage.emailpackage import *
 if __name__ ==  "__main__":
     name = input ("Full name: ")
     dob = input ("Date of birth: ")
