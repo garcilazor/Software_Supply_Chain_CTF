@@ -4,7 +4,7 @@ Abandoned Dependencies CTF
     - docker build --no-cache -t img .
 
 - Now run the image:
-    - docker run -it test
+    - docker run -it img
 
 - Now open another shell/terminal, and create a file named server.py with the code from the "misc_1.txt" file. NOTE: The host ip here must be set to the IP of your local machine
 
