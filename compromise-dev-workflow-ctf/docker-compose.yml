@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  player:
+    image: ctf-cdw-player:latest
+    container_name: ctf-cdw-player
+    hostname: ubuntu
+    networks:
+      - ctf-cdw-network
+    tty: true
+  
+  client:
+    image: ctf-cdw-randomclient:latest
+    container_name: ctf-cdw-client
+    networks:
+      - ctf-cdw-network
+    logging:
+      driver: "none"
+
+  webserver:
+    image: ctf-cdw-codetrov:latest
+    container_name: ctf-cdw-codetrov
+    hostname: codetrov
+    ports:
+      - "5000:80"
+    networks:
+      - ctf-cdw-network
+    logging:
+      driver: "none"
+
+networks:
+  ctf-cdw-network:
+    name: ctf-cdw-network
