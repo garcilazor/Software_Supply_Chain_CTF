@@ -1,5 +1,5 @@
 # Use Google Cloud SDK's container as the base image
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 # Specify the maintainer of the container image
 MAINTAINER Caspar "cchilds@pdx.edu"
