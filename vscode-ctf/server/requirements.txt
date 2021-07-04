@@ -1,4 +1,0 @@
-#git
-#git+https://github.com/ectoglasses/flask.git
--e git+https://github.com/ectoglasses/flask.git#egg=flask
-#-e git@github.com:ectoglasses/flask.git#egg=flask
