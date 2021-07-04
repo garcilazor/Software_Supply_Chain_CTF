@@ -1,0 +1,1 @@
+echo "While it's impossible to stop you, 'docker exec'ing into the client is concidered cheating."
