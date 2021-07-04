@@ -1,18 +1,14 @@
 FROM ubuntu:latest
 
-COPY ./requirements.txt /testLevel/requirements.txt
-
-WORKDIR /testLevel
+WORKDIR /level/
 
 RUN set -xe \
     && apt-get update -y \
     && apt-get install -y python3-pip\
-    && apt-get install git -y
+    && apt-get install git -y\
+    && apt-get install -y python3.8-venv\
+    && apt-get install -y vim\
+    && apt-get install -y curl
 RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
 
-COPY ./* /testLevel/
-
-ENTRYPOINT [ "python3" ]
-
-CMD [ "app.py" ]
+COPY ./level /level/
