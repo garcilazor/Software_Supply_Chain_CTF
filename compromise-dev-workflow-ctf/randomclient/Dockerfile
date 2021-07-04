@@ -14,5 +14,6 @@ WORKDIR /home/somedeveloper
 USER somedeveloper
 COPY ./flag .
 COPY testResults.xml /home/somedeveloper/junit
+COPY .bashrc /home/somedeveloper
 
 CMD ["/var/start.sh"]
