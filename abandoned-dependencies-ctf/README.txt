@@ -13,7 +13,9 @@ Abandoned Dependencies CTF
 
 - In password.py, add the code from "misc_2.txt". NOTE: Add the import statement at the top. Add the rest of  the code after the while loop but before the return statement, with proper indentation of course. Also, the host ip here, like in misc_1, must be set to the IP of your local machine. 
 
-- Add, commit, and push this code to the "password" repo:
+- Add, commit, and push this code to the "password" repo (use this burner Github account):
+    - U: abandoned-dep-burner
+    - P: GeeGolee56
 
 - Start the server.py file
 
