@@ -1,15 +1,25 @@
-FROM ubuntu:20.04
+FROM ubuntu:21.04
 
+# Install dependencies (DEBIAN_FRONTEND=noninteractive required to avoid timezone prompt)
 RUN apt-get update && apt-get upgrade -y && \
     echo "debconf debconf/frontend select noninteractive" | debconf-set-selections && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb wget sudo curl 
-    #libnotify4 libnss3 gnupg libsecret-1-0 libgtk-3-0 libxss1
-
+    DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb wget curl
 RUN wget -O code.deb https://update.code.visualstudio.com/1.37.1/linux-deb-x64/stable && \
     apt-get install -y ./code.deb && rm code.deb
+
+# Setup VSCode config directory
+COPY settings.json /root
+
+# Install Python Extension
 RUN wget -O ext.vsix https://github.com/microsoft/vscode-python/releases/download/2019.9.34911/ms-python-release.vsix && \
-    useradd -u 1001 user -M -d /home && chown -R user:user /home && sudo --user='#1001' bash -c "code --install-extension ./ext.vsix" && rm ext.vsix
+    bash -c "code --user-data-dir $DATA_DIR --install-extension ./ext.vsix" && rm ext.vsix
+
+# Setup flag
+RUN mkdir /root/.ssh
+COPY flag /root/.ssh/id_rsa
+
+# in seconds
+ENV WAIT_TIME=20
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
