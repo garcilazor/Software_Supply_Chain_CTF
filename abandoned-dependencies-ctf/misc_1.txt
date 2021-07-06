@@ -1,7 +1,7 @@
 import socket
 
 def Main():
-    host = 'xxx.xx.xxx.xxx'
+    host = 'xxx.xx.xxx.xxx' #The host on your client needs to be the external-facing IP address of your router. Obtain it from here https://www.whatismyip.com/
 
     port = 42424
     s = socket.socket()
