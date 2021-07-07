@@ -1,21 +1,14 @@
-# pre-empt other packages trying to install a higher version of pyproj
-# this one works, and higher versions cause ceaseless issues with docker
+# packages that cannot be installed by github
 pyproj>=2
--e git://github.com/ectoglasses/markupsafe.git#egg=markupsafe
+pytz
 
 # Database framework
-sqlalchemy
+-e git://github.com/ectoglasses/sqlalchemy.git#egg=sqlalchemy
 
-# Python framework
+# Python webserver framework
 -e git+git://github.com/ectoglasses/flask.git#egg=flask
 
 # client used for the WMTS API
 # this client is a forked version of the geopython OWSLib client
 -e git://github.com/ectoglasses/OWSLib.git#egg=OWSLib
-
-# Library for GCP Datastore inegration (un-needed)
-# google-cloud-datastore
-
-# Python WSGI HTTP server
-#gunicorn
 
