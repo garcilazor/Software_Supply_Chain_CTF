@@ -17,8 +17,7 @@ if [ ! -d $TROVUPLOADDIRECTORY ]; then
     exit 1
 fi
 
-trap 'rm -f "$upload_file_name"' EXIT  # Ensure new files will be deleted upon exit
-trap 'rm -f "$upload_file"' EXIT  
+trap 'rm -f "$upload_file"' EXIT  # Ensure new files will be deleted upon exit
 upload_file_name=$(mktemp -t "codetrov.XXXXXXXX") || exit 1
 upload_file="$upload_file_name.tar.gz"
 tar -cvf $upload_file -C $TROVUPLOADDIRECTORY .
