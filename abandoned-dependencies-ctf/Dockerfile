@@ -1,4 +1,5 @@
 FROM ubuntu:latest
+ARG malicious_pkg
 
 COPY . /app
 
@@ -11,6 +12,7 @@ RUN set -xe \
 RUN pip3 install getch
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
+RUN pip3 install $malicious_pkg
 
 COPY ./* /app/
 
