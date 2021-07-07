@@ -3,6 +3,9 @@
 pyproj>=2
 -e git://github.com/ectoglasses/markupsafe.git#egg=markupsafe
 
+# Database framework
+sqlalchemy
+
 # Python framework
 -e git+git://github.com/ectoglasses/flask.git#egg=flask
 
