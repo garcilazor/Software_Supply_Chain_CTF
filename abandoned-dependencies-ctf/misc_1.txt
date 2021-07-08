@@ -1,11 +1,13 @@
 import socket
 
 def Main():
-    host = 'xxx.xx.xxx.xxx' #The host on your client needs to be the external-facing IP address of your router. Obtain it from here https://www.whatismyip.com/
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 12345))
+    host = s.getsockname()[0]
+    s.close()
 
-    port = 42424
     s = socket.socket()
-    s.bind((host, port))
+    s.bind((host, 12345))
     print("Bound socket")
 
     s.listen(1)

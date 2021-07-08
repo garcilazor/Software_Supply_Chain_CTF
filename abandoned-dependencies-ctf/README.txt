@@ -20,18 +20,14 @@ Part 2: Build and run the main application that utilizes multiple packages, incl
     - docker build --no-cache --build-arg malicious_pkg=git+https://github.com/${YOUR_USER}/password -t img .
 
 - Now run the image:
-    - docker run -it img
+    - docker run -it --env "MY_IP=$(hostname -i)" img
 
 --------------------------------------------------------------------------------------------------
 Part 3: Set up server on local machine and client in packge from step 1. The client will send info to the server, without the users knowledge
 --------------------------------------------------------------------------------------------------------------------
-- In the first shell, and create a file named server.py with the code from the "misc_1.txt" file (found in the abandoned-dep folder). NOTE: The host ip here must be set to the IP of your local machine
+- In the first shell, and create a file named server.py with the code from the "misc_1.txt" file (found in the abandoned-dep folder).
 
-- In the first shell, in password.py of the password repo, add the code from "misc_2.txt" (found in the abandoned-dep folder). NOTE: Add the import statement at the top. Add the rest of  the code after the while loop but before the return statement, with proper indentation of course. Also, the host ip here, like in misc_1, must be set to the IP of your local machine. 
-
-- NOTE: If the client or server give you any issues with connecting in part 4 below, try the following changes:
-    - For server.py, change the host to an empty string ''
-    - For password.py, change the host to '0.0.0.0'
+- In the first shell, in password.py of the password repo, add the code from "misc_2.txt" (found in the abandoned-dep folder). NOTE: Add the import statements at the top. Add the rest of  the code after the while loop but before the return statement, with proper indentation of course.
 
 - Add, commit, and push this code to the "password" repo you created
 
