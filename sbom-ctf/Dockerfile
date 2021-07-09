@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-WORKDIR /level/
+WORKDIR /projects/
 
 RUN set -xe \
     && apt-get update -y \
@@ -12,4 +12,4 @@ RUN set -xe \
 
 RUN pip3 install --upgrade pip
 
-COPY ./level /level/
+COPY ./projects /projects/
