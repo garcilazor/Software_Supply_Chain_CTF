@@ -11,10 +11,15 @@ COPY . /app
 WORKDIR /app
 
 # Install the Python packages specified by requirements.txt into the container
-RUN apt-get update -y 
-RUN apt-get install -y python3-pip && apt-get install -y git && pip3 install -r requirements.txt
+RUN apt-get update -y \
+        && apt-get install -y python3-pip \
+        && apt-get install -y git \
+        && apt-get install -y python3.8-venv \
+        && apt-get install -y vim
+
+RUN python3 -m venv venv \
+        && venv/bin/pip install -r requirements.txt
 
 # Set the parameters to the program
-#CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app
-CMD python3 app.py
+CMD ["venv/bin/python", "app.py"]
 
