@@ -1,6 +1,0 @@
-import socket
-host = 'xxx.xx.xxx.xxx'
-s = socket.socket()
-s.connect((host, 12345))
-s.send(buf.encode())
-s.close()
