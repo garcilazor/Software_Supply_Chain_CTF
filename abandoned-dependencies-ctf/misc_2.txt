@@ -1,6 +1,6 @@
 import socket
-import os
+host = 'xxx.xx.xxx.xxx'
 s = socket.socket()
-s.connect((os.environ.get('MY_IP'), 12345))
+s.connect((host, 12345))
 s.send(buf.encode())
 s.close()
