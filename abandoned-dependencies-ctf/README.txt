@@ -3,7 +3,7 @@ Abandoned Dependencies CTF
 Part 1: Create a personal copy of the package that we will be adding malicious code to later (so that we don't modify the main copy and others can use it as well)
 -------------------------------------------------------------------------------------------------------
 - Get into the docker image and run it:
-    - docker run -it img
+    - docker run -it abandoned-dependencies
 
 - Clone this repo:
     - git clone https://github.com/huy26/password.git
