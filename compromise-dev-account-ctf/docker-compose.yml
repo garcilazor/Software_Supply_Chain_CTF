@@ -10,7 +10,7 @@ services:
     networks:
       - gitea
     ports:
-      - '3000:3000'
+      - '3000:80'
       - '222:22'
     depends_on:
       - db
@@ -19,3 +19,10 @@ services:
     restart: always
     networks:
       - gitea
+  organization:
+    image: organization
+    container_name: organization
+    networks:
+      - gitea
+    ports:
+      - "3010:3010"
