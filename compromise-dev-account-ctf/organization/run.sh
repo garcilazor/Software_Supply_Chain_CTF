@@ -2,8 +2,8 @@
 
 while true
 do
-	pip install > "git+http://gitea/pallets/flask.git"
+	kill -9 $(pgrep -f flask)
+	pip install git+http://gitea/pallets/flask.git
 	flask run
 	sleep 30
-	kill $(pgrep -f flask)
 done
