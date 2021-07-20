@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 WORKDIR /app
 
-COPY *.py requirements.txt /app
+COPY requirements.txt /app
 
 RUN set -xe \
     && apt-get update -y \
