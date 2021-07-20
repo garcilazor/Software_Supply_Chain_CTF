@@ -9,6 +9,7 @@ RUN set -xe \
     && apt-get install -y python3-pip\
     && apt-get install git -y
 RUN pip3 install --upgrade pip
+RUN pip3 install flask
 
 COPY app/app.py /home/app/ 
 COPY ./run.sh /home/app/
