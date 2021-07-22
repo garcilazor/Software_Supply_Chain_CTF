@@ -25,4 +25,12 @@ services:
     networks:
       - gitea
     ports:
-      - "3010:3010"
+      - "3010:80"
+  player:
+   image: player
+   container_name: player
+   networks:
+     - gitea
+   tty: true
+   ports:
+     - "3020:3020"
