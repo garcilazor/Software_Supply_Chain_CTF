@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h4> Zoom: {{ coords[0] }} <br>
+		X co-ord: {{ coords[2] }} | Y co-ord: {{ coords[1] }} <br>
+		X Boundary: {{ bounds[0] }} | Y Boundary: {{ bounds[1] }} </h4>
+
+	<div class="map">
+		<div class="frame">
+		{% for tile in tiles %}
+			<img class="tile" src="{{ tile.url }}">
+		{% endfor %}
+		</div>
+		<div class="frame overlay">
+		{% for flag in flags %}
+			<img class="flag" src="https://clipartart.com/images/flag-icon-clipart.png" style="margin-left: {{ flag.x }}px;margin-top: {{ flag.y }}px;" title="{{ flag.message }}">
+		{% endfor %}
+		</div>
+	</div>
+
+	<h3>Enter New Co-ords to Move:</h3>
+	<p>Enter a co-ord between 0, and the boundary value given above!
+	The maximum zoom level is nine. Usually. Sometimes NASA changes it.
+	<form action="{{ url_for('move') }}" method=post>
+		<p class="heading">Zoom level: <input type=number min=0 value=0 name=height>
+		<p class="heading">X co-ord: <input type=number min=0 value=0 name=column>
+		<p class="heading">Y co-ord: <input type=number min=0 value=0 name=row>
+		<p><input type=submit value=Move></p>
+	</form>
+
+	<h3>Plant a Flag!</h3>
+	<p>Flags are planted at subdivisions of your current frame view.
+	This means, picture the map you currently see divided by 20ths along
+	the x axis, and 10ths along the y axis, and the flag will be planted
+	in that square! Hover over flags to see the attached message</p>
+	<form action="{{ url_for('plant') }}" method=post>
+		<p class="heading">X co-ord: <input type=number min=1 max=20 value=1 name=x>
+		<p class="heading">Y co-ord: <input type=number min=1 max=10 value=1 name=y>
+		<p class="heading">Message: <input type=text name=message>
+		<p><input type=submit value=Plant></p>
+	</form>
+{% endblock %}
