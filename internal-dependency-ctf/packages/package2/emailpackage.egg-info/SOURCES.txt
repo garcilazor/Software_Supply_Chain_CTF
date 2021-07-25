@@ -1,0 +1,9 @@
+setup.py
+emailpackage/__init__.py
+emailpackage/emailpackage.py
+emailpackage.egg-info/PKG-INFO
+emailpackage.egg-info/SOURCES.txt
+emailpackage.egg-info/dependency_links.txt
+emailpackage.egg-info/not-zip-safe
+emailpackage.egg-info/requires.txt
+emailpackage.egg-info/top_level.txt

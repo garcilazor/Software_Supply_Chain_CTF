@@ -7,14 +7,18 @@ services:
       - 8080:8080
     volumes:
       - type: bind
-        source: /home/user-name/pypi/auth
+        source: ./auth
         target: /data/auth
       - type: volume
         source: pypi-server
         target: /data/packages
     command: -P /data/auth/.htpasswd -a update,download,list /data/packages
     restart: always
-  ubuntu:
-          build: .
+  packages:
+    image: test
+    build: ./packages
+    links: 
+      - "pypi-server"
+
 volumes:
   pypi-server:

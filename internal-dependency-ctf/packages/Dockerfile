@@ -2,6 +2,7 @@ FROM ubuntu:latest
 
 WORKDIR /app
 
+COPY . /app
 
 RUN set -xe \
     && apt-get update -y \
@@ -9,4 +10,9 @@ RUN set -xe \
     && apt-get install git -y\
     && apt-get install vim -y
 RUN pip3 install --upgrade pip
+RUN pip3 install twine
+RUN pip3 install keyrings.alt
+RUN cp .pypirc ~/
+RUN chmod a+x /app/run.sh
 
+CMD /app/run.sh
