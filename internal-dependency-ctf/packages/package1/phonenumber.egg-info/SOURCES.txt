@@ -1,0 +1,9 @@
+setup.py
+phonenumber/__init__.py
+phonenumber/phonenumber.py
+phonenumber.egg-info/PKG-INFO
+phonenumber.egg-info/SOURCES.txt
+phonenumber.egg-info/dependency_links.txt
+phonenumber.egg-info/not-zip-safe
+phonenumber.egg-info/requires.txt
+phonenumber.egg-info/top_level.txt
