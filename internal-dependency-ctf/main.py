@@ -1,12 +1,21 @@
-#from malicious_pkg.malicious_script import malicious_func
-# Temporarily using password pkg to test malicious code
 from password.password import *
-print(getpass(5, 3))
-""" Malicious pkg code to steal ssh key. Still need to get ssh info to hacker, not print it on developers screen as is being done now
-from os.path import expanduser
-home = expanduser("~")
-try:
-    f = open(home + "/.ssh/id_rsa")
-    print(f.read())
-except OSError as e:
-    pass"""
+from record.record import *
+from phonenumber.phonenumber import *
+from emailpackage.emailpackage import *
+if __name__ ==  "__main__":
+    name = input ("Full name: ")
+    dob = input ("Date of birth: ")
+    password = getpass("Password: ")
+    re_password = getpass("Verify your password: ")
+    address = input("Address: ")
+    phone = input("Phone number: ")
+    if(phonevalidate(phone)==False):
+        print("Invalid phone number \n") 
+    email = input("Email: ")
+    if(emailvalidate(email)==False):
+        print("Invalid email \n") 
+    # using function from "good" record package that simply creates a 
+    # dictionary with all the above information
+    record = createRecord(name, dob, password, address, phone)
+    print("New record successfully created: \n")
+    print(record)
