@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  pypi-server:
+    image: pypiserver/pypiserver:latest
+    ports:
+      - 8000:8080
+    volumes:
+      - type: bind
+        source: ./auth
+        target: /data/auth
+      - type: volume
+        source: pypi-server
+        target: /data/packages
+    command: -P ./auth/local/.htpasswd -a update,download,list 
+    restart: always
+  internal-server:
+    image: pypiserver/pypiserver:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./auth
+        target: /data/auth
+      - type: volume
+        source: pypi-server
+        target: /data/packages
+    command: -P ./auth/internal/.htpasswd -a update,download,list /data/packages
+    restart: always
+  ubuntu:
+          build: .
+volumes:
+  pypi-server:
