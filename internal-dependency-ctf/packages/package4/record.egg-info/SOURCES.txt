@@ -5,5 +5,4 @@ record.egg-info/PKG-INFO
 record.egg-info/SOURCES.txt
 record.egg-info/dependency_links.txt
 record.egg-info/not-zip-safe
-record.egg-info/requires.txt
 record.egg-info/top_level.txt
