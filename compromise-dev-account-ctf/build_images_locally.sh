@@ -5,3 +5,4 @@
 docker build db --tag ctf-cda-db
 docker build gitea --tag ctf-cda-gitea
 docker build organization --tag ctf-cda-organization
+docker build player --tag ctf-cda-player

