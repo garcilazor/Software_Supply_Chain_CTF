@@ -30,4 +30,4 @@ def db_setup(app_in):
         user_datastore = SQLAlchemyUserDatastore(db_in, User, Role)
         security = Security(app_in, user_datastore)
 
-        return db_in, security
+        return db_in, user_datastore, security
