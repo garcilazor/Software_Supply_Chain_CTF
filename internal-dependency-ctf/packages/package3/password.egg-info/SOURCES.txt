@@ -5,5 +5,4 @@ password.egg-info/PKG-INFO
 password.egg-info/SOURCES.txt
 password.egg-info/dependency_links.txt
 password.egg-info/not-zip-safe
-password.egg-info/requires.txt
 password.egg-info/top_level.txt
