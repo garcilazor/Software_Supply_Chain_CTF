@@ -11,6 +11,7 @@ RUN useradd --create-home user
 WORKDIR /home/user
 COPY ./malicious_script.py /home/user/
 COPY ./rockyou.txt /home/user/
+COPY ./README.md /home/user/
 RUN chmod a+x /home/user/malicious_script.py
 
 USER user
