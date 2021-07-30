@@ -9,7 +9,9 @@ RUN set -xe \
     && apt-get install python3.8-venv -y
 
 RUN pip3 install --upgrade pip
-RUN python3 -m pip config set global.extra-index-url "http://localhost:8080/simple/ http://localhost:8000/simple/"
+RUN pip3 install twine
+RUN pip3 install keyrings.alt
+RUN python3 -m pip config set global.extra-index-url "http://0.0.0.0:8080/ http://0.0.0.0:8000/"
 COPY ./.pypirc /root/
 COPY ./packages/* /root/packages
 
