@@ -27,10 +27,11 @@ services:
     ports:
       - "3010:80"
   player:
-   image: ctf-cda-player
-   container_name: player
-   networks:
-     - gitea
-   tty: true
-   ports:
-     - "3020:3020"
+    image: ctf-cda-player
+    container_name: player
+    hostname: ubuntu
+    networks:
+      - gitea
+    tty: true
+    ports:
+      - "3020:3020"
