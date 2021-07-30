@@ -9,10 +9,7 @@ services:
       - type: bind
         source: ./auth
         target: /data/auth
-      - type: volume
-        source: pypi-server
-        target: /data/packages
-    command: -P ./auth/local/.htpasswd -a update,download,list 
+    command: -P ./auth/local/.htpasswd -a update,download,list /data/packages
     restart: always
   internal-server:
     image: pypiserver/pypiserver:latest
@@ -22,12 +19,10 @@ services:
       - type: bind
         source: ./auth
         target: /data/auth
-      - type: volume
-        source: pypi-server
-        target: /data/packages
     command: -P ./auth/internal/.htpasswd -a update,download,list /data/packages
     restart: always
   ubuntu:
-          build: .
-volumes:
-  pypi-server:
+     build: .
+     stdin_open: true
+     tty: true
+
