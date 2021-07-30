@@ -4,33 +4,34 @@ networks:
     external: false
 services:
   server:
-    image: gitea
+    image: ctf-cda-gitea
     container_name: gitea
     restart: always
     networks:
       - gitea
     ports:
-      - '3000:80'
-      - '222:22'
+      - '5000:80'
+      - '2222:22'
     depends_on:
       - db
   db:
-    image: db
+    image: ctf-cda-db
     restart: always
     networks:
       - gitea
   organization:
-    image: organization
+    image: ctf-cda-organization
     container_name: organization
     networks:
       - gitea
     ports:
       - "3010:80"
   player:
-   image: player
-   container_name: player
-   networks:
-     - gitea
-   tty: true
-   ports:
-     - "3020:3020"
+    image: ctf-cda-player
+    container_name: player
+    hostname: ubuntu
+    networks:
+      - gitea
+    tty: true
+    ports:
+      - "3020:3020"

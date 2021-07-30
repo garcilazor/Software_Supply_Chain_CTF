@@ -20,7 +20,37 @@ app = flask.Flask(__name__)
 app.secret_key = b'U\xe7\xb7\x9c\x01\x82\xfbf\xd8\xaf\xde i\xdb\xac\xe4'
 
 # user account database setup
-db, security = db_setup(app)
+db, user_datastore, security = db_setup(app)
+
+@app.before_first_request
+def create_users():
+        db.create_all()
+        user_datastore.create_role(
+                name="admin",
+                permissions={"admin-read", "admin-write", "user-read", "user-write"},
+        )
+        user_datastore.create_role(name="monitor", permissions={"admin-read", "user-read"})
+        user_datastore.create_role(name="user", permissions={"user-read", "user-write"})
+        user_datastore.create_role(name="reader", permissions={"user-read"})
+
+        user_datastore.create_user(
+                email="admin@me.com", password="password", roles=["admin"]
+        )
+        user_datastore.create_user(
+                email="ops@me.com", password="password", roles=["monitor"]
+        )
+        real_user = user_datastore.create_user(
+                email="user@me.com", password="password", roles=["user"]
+        )
+        user_datastore.create_user(
+                email="reader@me.com", password="password", roles=["reader"]
+        )
+
+        # create initial blog
+#       blog = Blog(text="my first blog", user=real_user)
+#       db.session.add(blog)
+        db.session.commit()
+#       print("First blog id {}".format(blog.id))
 
 # home page (where all the magic happens)
 app.add_url_rule('/',

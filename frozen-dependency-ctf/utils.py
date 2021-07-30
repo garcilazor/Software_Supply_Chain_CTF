@@ -23,11 +23,11 @@ def db_setup(app_in):
                 pass
 
         class User(db_in.Model, fsqla.FsUserMixin):
-                blogs = db_in.relationship("Blog", backref="user", lazy="dynamic")
+                #blogs = db_in.relationship("Blog", backref="user", lazy="dynamic")
                 pass
 
         # Setup Flask-Security
         user_datastore = SQLAlchemyUserDatastore(db_in, User, Role)
         security = Security(app_in, user_datastore)
 
-        return db_in, security
+        return db_in, user_datastore, security
