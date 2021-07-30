@@ -14,6 +14,7 @@ RUN pip3 install flask
 
 COPY app/app.py /home/app/ 
 COPY ./run.sh /home/app/
+ENV FLAG=COMPROMISE-DEV-ACCOUNT-FLAG
 
 RUN chmod a+x /home/app/run.sh
 ENTRYPOINT ["/home/app/run.sh"]
