@@ -22,5 +22,5 @@ bcrypt
 # google-cloud-datastore
 
 # Python WSGI HTTP server (currently un-used)
-# gunicorn
+gunicorn
 

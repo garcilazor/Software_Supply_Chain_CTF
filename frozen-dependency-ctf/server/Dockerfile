@@ -12,11 +12,12 @@ WORKDIR /app
 
 # Install the Python packages specified by requirements.txt into the container
 RUN apt-get update -y \
-        && RUN apt-get install -y python3-pip \
-        && apt-get install -y git \
+        && apt-get install -y python3-pip git vim \
         && pip3 install -r requirements.txt
 
+EXPOSE 8000
+
 # Set the parameters to the program
-#CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app
+#CMD exec gunicorn --bind 0.0.0.0:8000 app:app
 CMD python3 app.py
 
