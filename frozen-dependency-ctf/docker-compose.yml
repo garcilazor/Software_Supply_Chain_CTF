@@ -1,0 +1,32 @@
+version: "3.5"
+services:
+  client:
+    image: fd-ctf-client:latest
+    container_name: fd-ctf-client
+    hostname: ubuntu
+    networks:
+      - fd-ctf-network
+    tty: true
+
+  server:
+    image: fd-ctf-server:latest
+    container_name: fd-ctf-server
+    hostname: marsexp
+    ports:
+      - "8000:80"
+    networks:
+      fd-ctf-network:
+        aliases:
+          - marsexp
+    logging:
+      driver: "none"
+
+networks:
+  fd-ctf-network:
+    name: fd-ctf-network
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.default_bridge: "true"
+      com.docker.network.bridge.enable_icc: "true"
+      com.docker.network.bridge.enable_ip_masquerade: "true"
+      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"

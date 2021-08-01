@@ -12,13 +12,6 @@ services:
     ports:
       - '5000:80'
       - '2222:22'
-    depends_on:
-      - db
-  db:
-    image: ctf-cda-db
-    restart: always
-    networks:
-      - gitea
   organization:
     image: ctf-cda-organization
     container_name: organization

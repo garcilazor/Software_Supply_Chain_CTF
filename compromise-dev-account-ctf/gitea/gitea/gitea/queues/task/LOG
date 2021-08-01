@@ -1,31 +1,8 @@
-=============== Jul 17, 2021 (PDT) ===============
-18:23:37.173488 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
-18:23:37.177537 db@open opening
-18:23:37.177889 version@stat F·[] S·0B[] Sc·[]
-18:23:37.179417 db@janitor F·2 G·0
-18:23:37.179441 db@open done T·1.875516ms
-18:44:08.386288 db@close closing
-18:44:08.386309 db@close done T·26.383µs
-=============== Jul 18, 2021 (PDT) ===============
-13:20:59.915238 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
-13:20:59.917546 version@stat F·[] S·0B[] Sc·[]
-13:20:59.917558 db@open opening
-13:20:59.917599 journal@recovery F·1
-13:20:59.917694 journal@recovery recovering @1
-13:20:59.922270 memdb@flush created L0@2 N·2 S·127B "high,v2":"low,v1"
-13:20:59.922431 version@stat F·[1] S·127B[127B] Sc·[0.25]
-13:20:59.929384 db@janitor F·3 G·0
-13:20:59.929404 db@open done T·11.840883ms
-13:42:46.769289 db@close closing
-13:42:46.769862 db@close done T·583.498µs
-=============== Jul 18, 2021 (PDT) ===============
-13:44:51.124320 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
-13:44:51.126445 version@stat F·[1] S·127B[127B] Sc·[0.25]
-13:44:51.126456 db@open opening
-13:44:51.126503 journal@recovery F·1
-13:44:51.126686 journal@recovery recovering @3
-13:44:51.126914 version@stat F·[1] S·127B[127B] Sc·[0.25]
-13:44:51.133445 db@janitor F·3 G·0
-13:44:51.133464 db@open done T·7.003236ms
-14:01:41.894550 db@close closing
-14:01:41.894595 db@close done T·48.433µs
+=============== Jul 30, 2021 (UTC) ===============
+21:56:46.568552 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+21:56:46.570350 db@open opening
+21:56:46.570520 version@stat F·[] S·0B[] Sc·[]
+21:56:46.571384 db@janitor F·2 G·0
+21:56:46.571395 db@open done T·1.034148ms
+22:02:46.233945 db@close closing
+22:02:46.234021 db@close done T·80.228µs
