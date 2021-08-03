@@ -1,6 +1,8 @@
 FROM ubuntu:latest
 
 ENV FLASK_APP=app
+ENV FLAG=COMPROMISE-DEV-ACCOUNT-FLAG
+ENV SQLURI=mysqlx://sqluser:mypasswordisqwerty@localhost
 
 WORKDIR /home/app
 
