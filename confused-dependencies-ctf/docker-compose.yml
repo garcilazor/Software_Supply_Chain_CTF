@@ -12,7 +12,9 @@ services:
     command: -P ./auth/local/.htpasswd -a update,download,list /data/packages
     restart: always
   internal-server:
-    image: pypiserver/pypiserver:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-setup
     ports:
       - 8080:8080
     volumes:
@@ -22,7 +24,9 @@ services:
     command: -P ./auth/internal/.htpasswd -a update,download,list /data/packages
     restart: always
   ubuntu:
-     build: .
+     build: 
+       context: .
+       dockerfile: Dockerfile
      stdin_open: true
      tty: true
 
