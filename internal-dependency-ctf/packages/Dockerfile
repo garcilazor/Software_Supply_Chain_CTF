@@ -12,7 +12,9 @@ RUN set -xe \
     && apt-get install git -y\
     && apt-get install vim -y\
     && apt-get install patator -y \
-    && apt-get install curl -y
+    && apt-get install curl -y \
+    && apt-get install nmap -y \
+    && apt-get install -y iproute2
 
 RUN pip3 install --upgrade pip
 RUN pip3 install twine

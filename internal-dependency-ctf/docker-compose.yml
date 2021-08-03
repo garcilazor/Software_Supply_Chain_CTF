@@ -14,9 +14,12 @@ services:
     restart: always
   packages:
     image: player-container
+    container_name: player-container
     build: ./packages
     links: 
-      - "pypi-server"
+      - pypi-server
+    depends_on:
+      - pypi-server
 
 volumes:
   pypi-server:
