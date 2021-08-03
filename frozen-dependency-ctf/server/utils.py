@@ -23,7 +23,6 @@ def db_setup(app_in):
                 pass
 
         class User(db_in.Model, fsqla.FsUserMixin):
-                #blogs = db_in.relationship("Blog", backref="user", lazy="dynamic")
                 pass
 
         # Setup Flask-Security

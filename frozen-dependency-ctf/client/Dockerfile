@@ -13,7 +13,5 @@ WORKDIR /app
 # Install the Python packages specified by requirements.txt into the container
 RUN apt-get update -y \
         && apt-get install -y python3 curl vim \
-        && ./setup.sh
-        
-# setup environment for user
-#CMD ./setup.sh
+        && ./setup.sh \
+	&& rm setup.sh
