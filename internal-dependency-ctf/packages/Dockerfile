@@ -17,7 +17,7 @@ RUN set -xe \
 RUN pip3 install --upgrade pip
 RUN pip3 install twine
 RUN pip3 install keyrings.alt
-RUN cp .pypirc ~/
+
 RUN chmod a+x /app/setup.sh
 
 ENTRYPOINT ["/app/setup.sh"]
