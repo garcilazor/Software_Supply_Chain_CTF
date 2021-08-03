@@ -10,10 +10,11 @@ RUN set -xe \
 
 RUN pip3 install --upgrade pip
 RUN pip3 install twine
-RUN pip3 install keyrings.alt
-RUN python3 -m pip config set global.extra-index-url "http://0.0.0.0:8080/ http://0.0.0.0:8000/"
+RUN python3 -m pip config set global.index-url "http://pypi-server:8000/"
+RUN python3 -m pip config set global.extra-index-url "http://internal-server:8080/"
+RUN python3 -m pip config set global.trusted-host "internal-server pypi-server"
 COPY ./.pypirc /root/
-COPY ./packages/* /root/packages
+
 
 ENTRYPOINT /bin/bash
 
