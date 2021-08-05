@@ -2,7 +2,7 @@ import socket
 
 def Main():
     s = socket.socket()
-    s.bind(('', 7234))
+    s.bind(('', 7243))
     print("Bound socket")
 
     s.listen(1)

