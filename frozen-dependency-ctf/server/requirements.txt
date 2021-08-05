@@ -7,7 +7,7 @@ wtforms<=2.1
 flask
 
 # Accounts framework
-flask-security-too==3.3.0
+flask-security-too==3.4.4
 flask-sqlalchemy
 bcrypt
 

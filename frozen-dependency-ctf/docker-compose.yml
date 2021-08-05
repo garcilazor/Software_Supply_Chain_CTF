@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.9"
 services:
   client:
     image: fd-ctf-client:latest
@@ -11,7 +11,6 @@ services:
   server:
     image: fd-ctf-server:latest
     container_name: fd-ctf-server
-    hostname: marsexp
     ports:
       - "8000:80"
     networks:

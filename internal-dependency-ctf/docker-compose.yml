@@ -2,23 +2,28 @@ version: '3.7'
 
 services:
   pypi-server:
-    image: pypiserver/pypiserver:latest
+    image: pypiserver
+    build: ./pypiserver
     ports:
       - 8080:8080
     volumes:
       - type: bind
-        source: ./auth
+        source: ./pypiserver/auth
         target: /data/auth
-      - type: volume
-        source: pypi-server
-        target: /data/packages
     command: -P /data/auth/.htpasswd -a update,download,list /data/packages
     restart: always
-  packages:
-    image: test
-    build: ./packages
+  attacker:
+    image: attacker-container
+    container_name: attacker-container
+    build: ./attacker
     links: 
-      - "pypi-server"
-
+      - pypi-server
+  victim:
+    image: victim-container
+    container_name: victim-container
+    build: ./victim
+    links:
+      - pypi-server
+      - attacker-container
 volumes:
   pypi-server:

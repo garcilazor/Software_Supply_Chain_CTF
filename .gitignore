@@ -2,3 +2,7 @@
 __pycache__
 compromise-dev-workflow-ctf/webserver/uploads
 compromise-dev-workflow-ctf/webserver.log
+frozen-dependancy-ctf/container_clean.sh
+frozen-dependancy-ctf/server/__pycache__
+frozen-dependancy-ctf/server/venv
+frozen-dependancy-ctf/server/test.sh
