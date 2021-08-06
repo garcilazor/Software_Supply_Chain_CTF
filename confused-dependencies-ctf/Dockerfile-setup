@@ -1,4 +1,0 @@
-FROM pypiserver/pypiserver:latest
-
-COPY ./packages/test_package/dist/* /data/packages
-
