@@ -11,17 +11,16 @@ RUN pip3 install --upgrade pip
 RUN pip3 install twine
 RUN pip install --user --upgrade pip
 RUN pip install keyrings.alt
-RUN python3 -m pip config set global.index-url "http://pypi-server:8000/simple/"
-RUN python3 -m pip config set global.extra-index-url "http://internal-server:8080/simple/"
-RUN python3 -m pip config set global.trusted-host "internal-server pypi-server"
+RUN python3 -m pip config set global.index-url "http://user:malicious@pypi-server:8080/simple/"
+RUN python3 -m pip config set global.trusted-host "pypi-server"
 COPY ./.pypirc /root/
 
 # Copy current source code in (can say that the player somehow acquired it)
 RUN mkdir /root/src
-COPY ./test-app/userwidgetserv /root/src/
-COPY ./test-app/mysoftlog /root/src/
+COPY ./test-app/userwidgetserv /root/src/userwidgetserv
+COPY ./test-app/mysoftlog /root/src/mysoftlog
 COPY ./test-app/player-README.md /root/src/README.md
 
-
+WORKDIR /root
 ENTRYPOINT /bin/bash
 

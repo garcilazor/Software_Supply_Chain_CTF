@@ -1,16 +1,18 @@
-# TODO: Is there a way to share a common builder with the private repo?
 FROM pypiserver/pypiserver:v1.4.2 AS builder
 RUN apk add gcc musl-dev openssl-dev libffi-dev
 RUN python3 -m pip install build
 WORKDIR /root/
-RUN mkdir ./packages
+RUN mkdir ./packages ./tmp-packages
 
 COPY ./test-app/mysoftlog ./mysoftlog
-RUN python3 -m pip download ./mysoftlog -d ./packages
+RUN python3 -m pip wheel -w tmp-packages ./mysoftlog
 
-COPY ./test-app/public_requirements.txt public_requirements.txt
-RUN python3 -m pip download -r ./public_requirements.txt -d ./packages
-RUN ls ./packages
+COPY ./test-app/userwidgetserv ./userwidgetserv
+RUN python3 -m pip wheel --find-links ./tmp-packages -w packages ./userwidgetserv
+RUN python3 -m pip wheel -w packages wheel setuptools
+
+# mysoftlog should only be in the private server
+RUN rm ./packages/mysoftlog-1.7.3-py3-none-any.whl
 
 ################################
 

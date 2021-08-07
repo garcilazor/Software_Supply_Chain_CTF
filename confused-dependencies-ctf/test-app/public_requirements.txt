@@ -1,9 +1,0 @@
-Flask
-itsdangerous
-Jinja2
-MarkupSafe
-pendulum
-python-dateutil
-pytzdata
-six
-Werkzeug

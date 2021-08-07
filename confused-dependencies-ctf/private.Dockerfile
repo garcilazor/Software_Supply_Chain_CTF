@@ -1,4 +1,3 @@
-# TODO: Is there a way to share a common builder with the private repo?
 FROM pypiserver/pypiserver:v1.4.2 AS builder
 RUN apk add gcc musl-dev openssl-dev libffi-dev
 RUN python3 -m pip install build
@@ -6,7 +5,7 @@ WORKDIR /root/
 RUN mkdir ./packages
 
 COPY ./test-app/mysoftlog ./mysoftlog
-RUN python3 -m pip download ./mysoftlog -d ./packages
+RUN python3 -m pip wheel ./mysoftlog -w ./packages
 
 ###############################
 
