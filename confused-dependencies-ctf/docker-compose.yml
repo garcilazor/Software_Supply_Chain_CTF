@@ -15,7 +15,7 @@ services:
     ports:
       - 8080:8080
     restart: always
-  ubuntu:
+  client:
      build: 
        context: .
        dockerfile: client.Dockerfile

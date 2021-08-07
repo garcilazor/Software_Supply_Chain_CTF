@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  tester:
+    image: sscsctf/levels:confused-dependencies-tester
+    stdin_open: true
+    tty: true

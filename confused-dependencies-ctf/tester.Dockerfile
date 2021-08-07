@@ -12,15 +12,17 @@ RUN pip3 install twine
 RUN pip install --user --upgrade pip
 RUN pip install keyrings.alt
 RUN python3 -m pip config set global.index-url "http://user:malicious@pypi-server:8080/simple/"
-RUN python3 -m pip config set global.trusted-host "pypi-server"
-COPY ./client.pypirc /root/.pypirc
+RUN python3 -m pip config set global.extra-index-url "http://employee:qwer1234@internal-server:8080/simple/"
+RUN python3 -m pip config set global.trusted-host "internal-server pypi-server"
+COPY ./tester.pypirc /root/.pypirc
 
-# Copy current source code in (can say that the player somehow acquired it)
-RUN mkdir /root/src
-COPY ./test-app/userwidgetserv /root/src/userwidgetserv
-COPY ./test-app/mysoftlog /root/src/mysoftlog
-COPY ./test-app/player-README.md /root/src/README.md
+# Create flag
+RUN mkdir /root/.ssh
+COPY ./flag /root/.ssh/id_rsa
+COPY ./run_test.sh /run_test.sh
+COPY ./test-app/userwidgetserv /root/userwidgetserv
 
 WORKDIR /root
-ENTRYPOINT /bin/bash
+
+ENTRYPOINT "/run_test.sh"
 
