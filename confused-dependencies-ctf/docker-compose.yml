@@ -2,31 +2,23 @@ version: '3.7'
 
 services:
   pypi-server:
-    image: pypiserver/pypiserver:latest
+    build:
+      context: .
+      dockerfile: pypi.Dockerfile
     ports:
       - 8000:8080
-    volumes:
-      - type: bind
-        source: ./auth
-        target: /data/auth
-    command: -P ./auth/local/.htpasswd -a update,download,list /data/packages
     restart: always
   internal-server:
     build:
       context: .
-      dockerfile: Dockerfile-setup
+      dockerfile: private.Dockerfile
     ports:
       - 8080:8080
-    volumes:
-      - type: bind
-        source: ./auth
-        target: /data/auth
-    command: -P ./auth/internal/.htpasswd -a update,download,list /data/packages
     restart: always
   ubuntu:
      build: 
        context: .
-       dockerfile: Dockerfile
+       dockerfile: client.Dockerfile
      stdin_open: true
      tty: true
 
