@@ -24,6 +24,6 @@ services:
     build: ./victim
     links:
       - pypi-server
-      - attacker-container
+      - attacker
 volumes:
   pypi-server:
