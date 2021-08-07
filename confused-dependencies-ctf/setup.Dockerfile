@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
 VOLUME /out
-COPY ./public /data
+COPY ./setup /data
 
 ENTRYPOINT /bin/bash -c 'cp /data/* /out'

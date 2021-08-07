@@ -7,7 +7,7 @@ services:
       - 8000:8080
     restart: always
   internal-server:
-    image: sscsctf/levels:confused-dependencies-internal
+    image: sscsctf/levels:confused-dependencies-private
     ports:
       - 8080:8080
     restart: always
