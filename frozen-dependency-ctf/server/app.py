@@ -70,7 +70,7 @@ app.add_url_rule('/plant/',
                 methods=['GET', 'POST'])
 
 # admin page
-admin_view = auth_required("basic", "session")(Admin.as_view('admin'))
+admin_view = auth_required("session", "token")(Admin.as_view('admin'))
 app.add_url_rule('/admin/',
                 view_func=admin_view,
                 methods=['GET'])
