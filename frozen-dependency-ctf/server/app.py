@@ -8,7 +8,7 @@ from flask.views import MethodView
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required
 from flask_security.models import fsqla
-from utils import db_setup
+import utils
 from index import Index
 from move import Move
 from plant import Plant
@@ -26,7 +26,7 @@ app.config["SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS"] = True
 app.secret_key = b'U\xe7\xb7\x9c\x01\x82\xfbf\xd8\xaf\xde i\xdb\xac\xe4'
 
 # user account database setup
-db, user_datastore, security = db_setup(app)
+db, user_datastore, security = utils.db_setup(app)
 
 @app.before_first_request
 def create_users():
@@ -40,7 +40,7 @@ def create_users():
         user_datastore.create_role(name="reader", permissions={"user-read"})
 
         user_datastore.create_user(
-                email="ramon@me.com", password="password", roles=["admin"]
+                email="ramon@me.com", password="password", roles=["admin"], profile="I am a software developer who likes tuna. A lot.", secret="dh54HGF43gTY2y"
         )
         user_datastore.create_user(
                 email="bill@me.com", password="password", roles=["monitor"]
