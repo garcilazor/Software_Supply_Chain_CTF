@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   client:
-    image: sscsctf/levels:ctf-fd-client:latest
+    image: sscsctf/levels:ctf-fd-client
     container_name: ctf-fd-client
     hostname: ubuntu
     networks:
@@ -9,12 +9,12 @@ services:
     tty: true
 
   server:
-    image: sscsctf/levels:ctf-fd-server:latest
+    image: sscsctf/levels:ctf-fd-server
     container_name: ctf-fd--server
     ports:
       - "8000:80"
     networks:
-      fd-ctf-network:
+      ctf-fd-network:
         aliases:
           - marsexp
     logging:
