@@ -1,16 +1,16 @@
 version: "3.9"
 services:
   client:
-    image: fd-ctf-client:latest
-    container_name: fd-ctf-client
+    image: ctf-fd-client:latest
+    container_name: ctf-fd-client
     hostname: ubuntu
     networks:
-      - fd-ctf-network
+      - ctf-fd-network
     tty: true
 
   server:
-    image: fd-ctf-server:latest
-    container_name: fd-ctf-server
+    image: ctf-fd-server:latest
+    container_name: ctf-fd--server
     ports:
       - "8000:80"
     networks:
@@ -21,8 +21,8 @@ services:
       driver: "none"
 
 networks:
-  fd-ctf-network:
-    name: fd-ctf-network
+  ctf-fd-network:
+    name: ctf-fd-network
     driver: bridge
     driver_opts:
       com.docker.network.bridge.default_bridge: "true"
