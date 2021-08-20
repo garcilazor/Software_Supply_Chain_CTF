@@ -13,13 +13,13 @@ services:
     command: -P /data/auth/.htpasswd -a update,download,list /data/packages
     restart: always
   attacker:
-    image: ctf-id-attacker
+    image: sscsctf/levels:ctf-id-attacker
     container_name: attacker-container
     build: ./attacker
     links: 
       - pypi-server
   victim:
-    image: ctf-id-victim
+    image: sscsctf/levels:ctf-id-victim
     container_name: victim-container
     build: ./victim
     links:

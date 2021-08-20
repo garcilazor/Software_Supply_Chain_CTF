@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   client:
-    image: ctf-fd-client:latest
+    image: sscsctf/levels:ctf-fd-client:latest
     container_name: ctf-fd-client
     hostname: ubuntu
     networks:
@@ -9,7 +9,7 @@ services:
     tty: true
 
   server:
-    image: ctf-fd-server:latest
+    image: sscsctf/levels:ctf-fd-server:latest
     container_name: ctf-fd--server
     ports:
       - "8000:80"

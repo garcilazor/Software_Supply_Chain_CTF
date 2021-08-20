@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   player:
-    image: ctf-cdw-player:latest
+    image: sscsctf/levels:ctf-cdw-player:latest
     container_name: ctf-cdw-player
     hostname: ubuntu
     networks:
@@ -9,7 +9,7 @@ services:
     tty: true
   
   client:
-    image: ctf-cdw-randomclient:latest
+    image: sscsctf/levels:ctf-cdw-randomclient:latest
     container_name: ctf-cdw-client
     networks:
       - ctf-cdw-network
@@ -17,7 +17,7 @@ services:
       driver: "none"
 
   webserver:
-    image: ctf-cdw-codetrov:latest
+    image: sscsctf/levels:ctf-cdw-codetrov:latest
     container_name: ctf-cdw-codetrov
     hostname: codetrov
     ports:

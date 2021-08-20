@@ -4,7 +4,7 @@ networks:
     external: false
 services:
   server:
-    image: ctf-cda-gitea
+    image: sscsctf/levels:ctf-cda-gitea
     container_name: gitea
     restart: always
     networks:
@@ -13,14 +13,14 @@ services:
       - '5000:80'
       - '2222:22'
   organization:
-    image: ctf-cda-organization
+    image: sscsctf/levels:ctf-cda-organization
     container_name: organization
     networks:
       - gitea
     ports:
       - "3010:80"
   player:
-    image: ctf-cda-player
+    image: sscsctf/levels:ctf-cda-player
     container_name: player
     hostname: ubuntu
     networks:
