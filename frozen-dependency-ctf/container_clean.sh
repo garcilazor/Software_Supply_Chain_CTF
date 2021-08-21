@@ -1,7 +1,7 @@
 #!/bin/bash
 
-docker stop fd-ctf-client
-docker stop fd-ctf-server
-docker rm fd-ctf-client
-docker rm fd-ctf-server
-docker network rm fd-ctf-network
+docker stop ctf-fd-client
+docker stop ctf-fd-server
+docker rm ctf-fd-client
+docker rm ctf-fd-server
+docker network rm ctf-fd-network

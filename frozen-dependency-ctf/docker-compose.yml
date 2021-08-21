@@ -10,7 +10,7 @@ services:
 
   server:
     image: sscsctf/levels:ctf-fd-server
-    container_name: ctf-fd--server
+    container_name: ctf-fd-server
     ports:
       - "8000:80"
     networks:
