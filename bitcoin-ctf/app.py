@@ -8,6 +8,7 @@ from flask.views import MethodView
 from index import Index
 from move import Move
 from plant import Plant
+from donate import Donate
 
 app = flask.Flask(__name__)
 
@@ -28,6 +29,10 @@ app.add_url_rule('/move/',
 app.add_url_rule('/plant/',
                 view_func=Plant.as_view('plant'),
                 methods=['GET', 'POST'])
+
+app.add_url_rule('/donate/',
+                view_func=Donate.as_view('donate'),
+                methods=['GET'])
 
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0', port=8000, debug=True)
