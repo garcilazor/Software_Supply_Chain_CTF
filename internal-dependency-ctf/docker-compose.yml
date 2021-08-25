@@ -10,17 +10,23 @@ services:
         source: ./pypiserver/auth
         target: /data/auth
     command: -P /data/auth/.htpasswd -a update,download,list /data/packages
+    networks:
+      - id-ctf
     restart: always
   attacker:
     image: sscsctf/levels:ctf-id-attacker
     container_name: attacker-container
-    links: 
-      - pypi-server
+    networks:
+      - id-ctf
   victim:
     image: sscsctf/levels:ctf-id-victim
     container_name: victim-container
-    links:
-      - pypi-server
-      - attacker
+    networks:
+      - id-ctf
 volumes:
   pypiserver:
+
+networks:
+  id-ctf:
+    external: false
+
