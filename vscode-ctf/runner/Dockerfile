@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:20.04
 
 # Install dependencies (DEBIAN_FRONTEND=noninteractive required to avoid timezone prompt)
 RUN apt-get update && apt-get upgrade -y && \
