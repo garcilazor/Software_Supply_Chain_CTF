@@ -3,7 +3,7 @@ This repository contains the necessary code to build all of the levels for the C
 * Abandoned Dependencies
 * Bitcoin
 * Compromise Developer Account (CDA)
-* Compromise Developer Workflow (CDW
+* Compromise Developer Workflow (CDW)
 * Confused Dependencies
 * Frozen Dependency
 * Internal Dependency
