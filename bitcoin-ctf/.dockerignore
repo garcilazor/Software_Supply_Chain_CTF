@@ -1,4 +1,5 @@
 env
+venv
 __pychache__
 project_url.txt
 screencast_url.txt

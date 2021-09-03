@@ -13,19 +13,23 @@ class Client {
 
         //check balances
         var currPayerBalance = Number(localStorage.getItem(id));
+        this.currBalance = Number(localStorage.getItem(this.id));
         if(!currPayerBalance) {
-            currPayerBalance = 0;
+            currPayerBalance = 10;
             localStorage.setItem(id, String(currPayerBalance));
+        }
+        if((currPayerBalance < amount && amount > 0) || (this.currBalance < (amount*-1) && amount < 0)) {
+            console.log("Insufficient funds")
+            return false;
         }
 
         //payment
         localStorage.setItem(id, String(currPayerBalance-amount));
-        this.currBalance = Number(localStorage.getItem(this.id));
         this.currBalance += amount;
         localStorage.setItem(this.id, String(this.currBalance));
 
         //success code
-        return -1;
+        return true;
     }
 
     withdrawal(amount, id, pubkey) {
@@ -46,21 +50,45 @@ class Wallet extends React.Component {
 
         this.client=new Client(this.props.id, this.props.pubkey)
         this.state={
-            data: 'blub'
+            id: "",
+            key: "",
+            coins: 0
         }
         this.updateState = this.updateState.bind(this)
+        this.transaction = this.transaction.bind(this)
     };
     updateState(e) {
-        this.setState({data: e.target.value});
+        const key = e.target.name;
+        const value = e.target.value;
+        this.setState({ [key]: value });
+    }
+    transaction(e) {
+        var success = this.client.payment(this.state.id, this.state.key, this.state.coins)
+        console.log("transaction complete")
+        if (success) {
+            document.getElementById("success-message").innerHTML = "Successfull payment!"
+        } else {
+            document.getElementById("success-message").innerHTML = "Payment denied!"
+        }
     }
     render() {
         return (
             <div>
-                <h4>BitWallet</h4>
-                <form>
-                    <input type="text" value={this.state.data} 
-                        onChange={this.updateState} />
-                </form>
+                <h4>Donate to us with BitWallet!</h4>
+                <h3>BitWallet ID:</h3>
+                <input name="id" type="text" value={this.state.id} 
+                    onChange={this.updateState} />
+                <h3>BitWallet Public Key:</h3>
+                <input name="key" type="text" value={this.state.key}
+                    onChange={this.updateState} />
+                <h3>Payment Amount:</h3>
+                <input name="coins" type="number" value={this.state.coins}
+                    onChange={this.updateState} />
+                <br />
+                <button onClick={this.transaction} title="pay">
+                    Donate!
+                </button>
+                <p id="success-message"></p>
             </div>
         );
     }
