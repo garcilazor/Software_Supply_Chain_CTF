@@ -1,13 +1,13 @@
 # pre-empt other packages trying to install a higher version of pyproj
 # this one works, and higher versions cause ceaseless issues with docker
 pyproj>=2
-wtforms<=2.1
+wtforms<=3.0.0a1
 
 # Python framework
 flask
 
 # Accounts framework
-flask-security-too==3.4.4
+flask-security-too==4.1.0
 flask-sqlalchemy
 bcrypt
 
