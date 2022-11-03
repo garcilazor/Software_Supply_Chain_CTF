@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:kinetic-20220830
 
 RUN apt-get update && apt-get install -y ssh curl vim nano
 
