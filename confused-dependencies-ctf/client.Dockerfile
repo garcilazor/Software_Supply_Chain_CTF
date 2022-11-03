@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:kinetic-20220830
 
 RUN set -xe \
     && apt-get update -y \
