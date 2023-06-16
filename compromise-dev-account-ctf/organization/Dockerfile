@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:kinetic
 
 ENV FLASK_APP=app
 ENV FLAG=COMPROMISE-DEV-ACCOUNT-FLAG
